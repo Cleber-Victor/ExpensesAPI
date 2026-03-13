@@ -1,0 +1,23 @@
+{
+  "name": "expensesapi",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Cleber-Victor/ExpensesAPI.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Cleber-Victor/ExpensesAPI/issues"
+  },
+  "homepage": "https://github.com/Cleber-Victor/ExpensesAPI#readme",
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}
