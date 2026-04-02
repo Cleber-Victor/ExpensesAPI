@@ -1,9 +1,11 @@
+import "dotenv/config";
 import express from "express";
 import cors from "cors";
 import pool from "./src/config/database.js";
 import errorHandling from "./src/middlewares/errorHandling.js";
 import userRoutes from "./src/routes/userRoutes.js";
 import expenseRoutes from "./src/routes/expenseRoutes.js";
+import authRoutes from "./src/routes/authRoutes.js";
 const app = express();
 
 const PORT = 3000;
@@ -11,6 +13,7 @@ const PORT = 3000;
 app.use(cors());
 app.use(express.json());
 
+app.use("/auth", authRoutes);
 app.use("/api", userRoutes);
 app.use("/api", expenseRoutes);
 

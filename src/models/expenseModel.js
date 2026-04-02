@@ -10,8 +10,8 @@ export const getExpensesByUserIdService = async (userId) => {
   return result.rows;
 };
 
-export const getExpenseByIdService = async (id) => {
-  const result = await pool.query("SELECT * FROM expenses WHERE id = $1", [id]);
+export const getExpenseByIdService = async (id, userId) => {
+  const result = await pool.query("SELECT * FROM expenses WHERE id = $1 AND user_id = $2", [id, userId]);
   return result.rows[0];
 };
 
@@ -24,16 +24,16 @@ export const createExpenseService = async (expense) => {
   return result.rows[0];
 };
 
-export const updateExpenseService = async (id, expense) => {
+export const updateExpenseService = async (id, userId, expense) => {
   const { description, amount, date } = expense;
   const result = await pool.query(
-    "UPDATE expenses SET description = $1, amount = $2, date = $3 WHERE id = $4 RETURNING *",
-    [description, amount, date, id]
+    "UPDATE expenses SET description = $1, amount = $2, date = $3 WHERE id = $4 AND user_id = $5 RETURNING *",
+    [description, amount, date, id, userId]
   );
   return result.rows[0];
 };
 
-export const deleteExpenseService = async (id) => {
-  const result = await pool.query("DELETE FROM expenses WHERE id = $1 RETURNING *", [id]);
+export const deleteExpenseService = async (id, userId) => {
+  const result = await pool.query("DELETE FROM expenses WHERE id = $1 AND user_id = $2 RETURNING *", [id, userId]);
   return result.rows[0];
 };
