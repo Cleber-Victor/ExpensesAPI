@@ -5,7 +5,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest",
+    "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "node index.js",
     "migrate": "node-pg-migrate",
     "migrate:up": "node-pg-migrate up"
@@ -22,9 +22,11 @@
   },
   "homepage": "https://github.com/Cleber-Victor/ExpensesAPI#readme",
   "dependencies": {
+    "bcrypt": "^6.0.0",
     "cors": "^2.8.6",
     "dotenv": "^17.3.1",
     "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3",
     "node-pg-migrate": "^7.9.1",
     "pg": "^8.20.0"
   },
