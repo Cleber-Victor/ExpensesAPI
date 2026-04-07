@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Expense Tracker | Login</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <!-- Include icons from Phosphor Icons for a clean look -->
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+</head>
+<body>
+  
+  <div class="auth-container">
+    <div class="auth-card glass">
+      
+      <!-- Login Form View -->
+      <div id="login-view">
+        <div class="auth-header">
+          <i class="ph ph-wallet" style="font-size: 3rem; color: var(--primary);"></i>
+          <h1 class="text-gradient">Welcome Back</h1>
+          <p>Login to manage your expenses</p>
+        </div>
+
+        <form id="login-form">
+          <div class="form-group">
+            <label for="login-email">Email</label>
+            <input type="email" id="login-email" class="form-control" placeholder="you@example.com" required>
+          </div>
+          <div class="form-group">
+            <label for="login-password">Password</label>
+            <input type="password" id="login-password" class="form-control" placeholder="••••••••" required>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width: 100%;">
+            <span>Sign In</span>
+            <div class="loader"></div>
+          </button>
+        </form>
+
+        <div class="auth-switch">
+          <p>Don't have an account? <a href="#" id="show-signup">Sign up</a></p>
+        </div>
+      </div>
+
+      <!-- Signup Form View -->
+      <div id="signup-view" class="hidden">
+        <div class="auth-header">
+          <i class="ph ph-user-plus" style="font-size: 3rem; color: var(--secondary);"></i>
+          <h1 class="text-gradient" style="background-image: linear-gradient(135deg, #34d399, #3b82f6);">Create Account</h1>
+          <p>Start tracking your expenses today</p>
+        </div>
+
+        <form id="signup-form">
+          <div class="form-group">
+            <label for="signup-name">Full Name</label>
+            <input type="text" id="signup-name" class="form-control" placeholder="Jane Doe" required>
+          </div>
+          <div class="form-group">
+            <label for="signup-email">Email</label>
+            <input type="email" id="signup-email" class="form-control" placeholder="you@example.com" required>
+          </div>
+          <div class="form-group">
+            <label for="signup-password">Password</label>
+            <input type="password" id="signup-password" class="form-control" placeholder="••••••••" required>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width: 100%; background: var(--secondary);">
+            <span>Create Account</span>
+            <div class="loader"></div>
+          </button>
+        </form>
+
+        <div class="auth-switch">
+          <p>Already have an account? <a href="#" id="show-login">Sign in</a></p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div id="toast-container" class="toast-container"></div>
+
+  <script src="/js/utils.js"></script>
+  <script src="/js/auth.js"></script>
+</body>
+</html>

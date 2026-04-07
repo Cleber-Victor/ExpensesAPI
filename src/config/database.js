@@ -10,6 +10,7 @@ const pool = new Pool({
   database: process.env.DB_NAME,
   password: String(process.env.DB_PASSWORD),
   port: parseInt(process.env.DB_PORT || "5432"),
+  ssl: process.env.DB_HOST && process.env.DB_HOST !== 'localhost' ? { rejectUnauthorized: false } : false
 })
 
 pool.on("connect", () => {

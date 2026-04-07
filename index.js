@@ -17,10 +17,7 @@ app.use("/auth", authRoutes);
 app.use("/api", userRoutes);
 app.use("/api", expenseRoutes);
 
-app.get("/", async (req, res) => {
-  const result = await pool.query("SELECT current_database()");
-  res.send(`The database name is: ${result.rows[0].current_database}`);
-});
+app.use(express.static("public"));
 
 
 app.use(errorHandling);
@@ -28,3 +25,5 @@ app.use(errorHandling);
 app.listen(PORT,() =>{
   console.log(`Server running on http://localhost:${PORT}`);
 });
+
+export default app;
