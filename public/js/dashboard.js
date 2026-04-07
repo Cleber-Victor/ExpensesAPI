@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
     try {
       const user = JSON.parse(userStr);
       if (user && user.name) {
-        document.getElementById('user-greeting').innerText = `Hello, ${user.name.split(' ')[0]}`;
+        document.getElementById('user-greeting').innerText = `Olá, ${user.name.split(' ')[0]}`;
       } else {
         localStorage.removeItem('expense_user');
       }
@@ -35,15 +35,24 @@ document.addEventListener('DOMContentLoaded', () => {
   // State
   let expenses = [];
 
+  const categoryMap = {
+    'Groceries': 'Supermercado',
+    'Leisure': 'Lazer',
+    'Electronics': 'Eletrônicos',
+    'Utilities': 'Contas Básicas',
+    'Clothing': 'Roupas',
+    'Health': 'Saúde',
+    'Others': 'Outros'
+  };
+
   // Functions
   const formatCurrency = (amount) => {
-    return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(amount);
+    return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(amount);
   };
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
-    // Adjusting for timezone to just show the simple date
-    return new Date(date.getTime() + Math.abs(date.getTimezoneOffset()*60000)).toLocaleDateString();
+    return new Date(date.getTime() + Math.abs(date.getTimezoneOffset()*60000)).toLocaleDateString('pt-BR');
   };
 
   const renderExpenses = () => {
@@ -52,7 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (expenses.length === 0) {
       emptyState.classList.remove('hidden');
       document.querySelector('.table-container').classList.add('hidden');
-      document.getElementById('total-spend').innerText = '$0.00';
+      document.getElementById('total-spend').innerText = 'R$ 0,00';
       document.getElementById('expenses-count').innerText = '0';
       return;
     }
@@ -64,10 +73,12 @@ document.addEventListener('DOMContentLoaded', () => {
     expenses.forEach(exp => {
       total += parseFloat(exp.amount);
       const tr = document.createElement('tr');
+      const catTranslated = categoryMap[exp.category] || exp.category;
+
       tr.innerHTML = `
         <td>${formatDate(exp.date)}</td>
         <td><strong style="color: var(--text-main)">${exp.description}</strong></td>
-        <td><span class="badge">${exp.category}</span></td>
+        <td><span class="badge">${catTranslated}</span></td>
         <td style="color: var(--danger); font-weight: 600;">-${formatCurrency(exp.amount)}</td>
         <td>
           <div class="actions">
@@ -97,21 +108,20 @@ document.addEventListener('DOMContentLoaded', () => {
       expenses = res.data || [];
       renderExpenses();
     } catch (err) {
-      showToast('Failed to load expenses', 'error');
+      showToast('Falha ao carregar despesas', 'error');
     }
   };
 
   const handleDelete = async (e) => {
-    // Traverse up to find the button if icon is clicked
     let target = e.target;
     if (target.tagName !== 'BUTTON') target = target.closest('button');
     
     const id = target.getAttribute('data-id');
-    if (!confirm('Are you sure you want to delete this expense?')) return;
+    if (!confirm('Tem certeza que deseja apagar esta despesa?')) return;
 
     try {
       await apiFetch(`/api/expenses/${id}`, { method: 'DELETE' });
-      showToast('Expense deleted', 'success');
+      showToast('Despesa apagada', 'success');
       loadExpenses();
     } catch (err) {
       showToast(err.message, 'error');
@@ -158,7 +168,7 @@ document.addEventListener('DOMContentLoaded', () => {
         method: 'POST',
         body: JSON.stringify(payload)
       });
-      showToast('Expense added successfully', 'success');
+      showToast('Despesa adicionada com sucesso', 'success');
       closeModal();
       loadExpenses();
     } catch (err) {

@@ -62,7 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
         body: JSON.stringify({ name, email, password })
       });
 
-      showToast('Account created successfully! Please log in.', 'success');
+      showToast('Conta criada com sucesso! Por favor, faça login.', 'success');
       
       // Switch to login
       document.getElementById('signup-form').reset();
