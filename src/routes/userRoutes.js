@@ -1,4 +1,5 @@
 import express from "express";
+import { authMiddleware } from "../middlewares/authMiddleware.js";
 
 import{
   createUser,
@@ -10,10 +11,13 @@ import{
 
 const router = express.Router();
 
+// Criação de usuário é pública
 router.post("/users", createUser);
-router.get("/users", getAllUsers);
-router.get("/users/:id", getUserById);
-router.put("/users/:id", updateUser);
-router.delete("/users/:id", deleteUser);
+
+// Demais rotas são protegidas
+router.get("/users", authMiddleware, getAllUsers);
+router.get("/users/:id", authMiddleware, getUserById);
+router.put("/users/:id", authMiddleware, updateUser);
+router.delete("/users/:id", authMiddleware, deleteUser);
 
 export default router;
